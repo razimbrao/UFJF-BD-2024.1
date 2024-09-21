@@ -7,8 +7,8 @@
     "build": "tsc",
     "start:dev": "nodemon src/server.ts",
     "db:migrate:generate": "npx sequelize-cli migration:generate --name",
-    "db:migrate": "npx sequelize-cli db:migrate",
-    "prepare": "husky"
+    "db:migrate:undo": "npx sequelize-cli db:migrate:undo --name",
+    "db:migrate": "npx sequelize-cli db:migrate"
   },
   "repository": {
     "type": "git"

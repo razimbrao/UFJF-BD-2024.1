@@ -1,15 +1,18 @@
 import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
 import { sequelize } from '../datasource';
 
-export interface TodoModel extends Model<InferAttributes<TodoModel>, InferCreationAttributes<TodoModel>> {
+export interface TournamentModel extends Model<InferAttributes<TournamentModel>, InferCreationAttributes<TournamentModel>> {
   id: CreationOptional<string>;
   name: string;
+  start: string;
+  end: string;
+  winnerTeam: string;
   createdAt: string;
   updatedAt: string;
 }
 
-export const Todos = sequelize.define<TodoModel>(
-  'todos',
+export const Tournaments = sequelize.define<TournamentModel>(
+  'tournaments',
   {
     id: {
       type: DataTypes.UUID,
@@ -19,6 +22,23 @@ export const Todos = sequelize.define<TodoModel>(
     name: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    start: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    end: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    winnerTeam: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      references: {
+        model: 'teams',
+        key: 'id'
+      },
+      field: 'winner_team'
     },
     createdAt: {
       type: DataTypes.DATE,
