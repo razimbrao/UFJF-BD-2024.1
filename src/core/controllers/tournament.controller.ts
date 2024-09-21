@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import { Tournaments } from '../../database/models/Tournaments';
 import { verifyTeamById } from '../services/teams.service';
+import { Teams } from '../../database/models/Teams';
+import { ITournamentWithTeams } from '../interfaces/Tournaments';
 
 export const createTournament = async (
   req: Request,
@@ -114,6 +116,37 @@ export const getTournamentById = async (
   } catch (error) {
     return res.status(400).send({
       message: 'Erro buscando torneio'
+    });
+  }
+};
+
+export const listTeamByTournament = async (
+  req: Request,
+  res: Response
+) => {
+  const { id } = req.params;
+
+  try {
+    const tournament = await Tournaments.findOne({
+      where: { id },
+      include: {
+        model: Teams,
+        as: 'teams'
+      }
+    }) as ITournamentWithTeams;
+
+    if (!tournament) {
+      return res.status(404).send({
+        message: 'Torneio não encontrado'
+      });
+    }
+
+    const teams = tournament.teams;
+
+    return res.status(200).json(teams);
+  } catch (error) {
+    return res.status(400).send({
+      message: 'Erro listando times do torneio'
     });
   }
 };

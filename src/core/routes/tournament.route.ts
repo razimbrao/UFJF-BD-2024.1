@@ -2,7 +2,7 @@ import express from 'express';
 import { CommonRoutesConfig } from '../../common/routes.config';
 import { verifyBody } from '../middlewares/body.middleware';
 import { validateUuid } from '../middlewares/identifier.middleware';
-import * as tournamentController from '../controllers/tournament.controller';
+import * as controller from '../controllers/tournament.controller';
 
 export class TournamentRoutes extends CommonRoutesConfig {
   constructor (app: express.Router) {
@@ -14,7 +14,7 @@ export class TournamentRoutes extends CommonRoutesConfig {
       .route('/tournament')
       .post(
         verifyBody('/tournament'),
-        tournamentController.createTournament
+        controller.createTournament
       );
 
     this.app
@@ -22,27 +22,34 @@ export class TournamentRoutes extends CommonRoutesConfig {
       .put(
         validateUuid,
         verifyBody('/tournament'),
-        tournamentController.updateTournament
+        controller.updateTournament
       );
 
     this.app
       .route('/tournament/:id')
       .delete(
         validateUuid,
-        tournamentController.deleteTournament
+        controller.deleteTournament
       );
 
     this.app
       .route('/tournament')
       .get(
-        tournamentController.listTournament
+        controller.listTournament
       );
 
     this.app
       .route('/tournament/:id')
       .get(
         validateUuid,
-        tournamentController.getTournamentById
+        controller.getTournamentById
+      );
+
+    this.app
+      .route('/tournament/:id/team')
+      .get(
+        validateUuid,
+        controller.listTeamByTournament
       );
 
     return this.app;
