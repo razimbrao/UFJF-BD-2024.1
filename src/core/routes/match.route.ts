@@ -33,9 +33,10 @@ export class MatchRoutes extends CommonRoutesConfig {
       );
 
     this.app
-      .route('/match')
+      .route('/tournament/:id/match')
       .get(
-        controller.listMatch
+        validateUuid,
+        controller.listMatchByTournament
       );
 
     this.app

@@ -23,3 +23,18 @@ export const validateUuid = async (req: Request, res: Response, next: NextFuncti
     return res.status(400).json({ message: (error as Error).message });
   }
 };
+
+export const validateSecondUuid = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { uuid } = req.params;
+    const validation = validator.validate(uuid, uuidSchema);
+
+    if (!validation.valid) {
+      throw new Error('UUID inválido');
+    }
+
+    next();
+  } catch (error) {
+    return res.status(400).json({ message: (error as Error).message });
+  }
+};

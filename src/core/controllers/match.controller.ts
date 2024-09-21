@@ -120,3 +120,23 @@ export const listMatch = async (
     });
   }
 };
+
+export const listMatchByTournament = async (
+  req: Request,
+  res: Response
+) => {
+  const { tournamentId } = req.params;
+  try {
+    const matches = await Matches.findAll({
+      where: {
+        tournamentId
+      }
+    });
+
+    return res.status(200).json(matches);
+  } catch (error) {
+    return res.status(400).send({
+      message: 'Erro listando partidas'
+    });
+  }
+};

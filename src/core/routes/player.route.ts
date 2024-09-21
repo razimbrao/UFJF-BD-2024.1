@@ -33,9 +33,10 @@ export class PlayerRoutes extends CommonRoutesConfig {
       );
 
     this.app
-      .route('/player')
+      .route('/teams/:id/player')
       .get(
-        controller.listPlayer
+        validateUuid,
+        controller.listPlayersByTeam
       );
 
     this.app

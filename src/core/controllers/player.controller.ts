@@ -85,21 +85,6 @@ export const deletePlayer = async (
   }
 };
 
-export const listPlayer = async (
-  req: Request,
-  res: Response
-) => {
-  try {
-    const players = await Players.findAll();
-
-    return res.status(200).json(players);
-  } catch (error) {
-    return res.status(400).send({
-      message: 'Erro listando jogadores'
-    });
-  }
-};
-
 export const getPlayerById = async (
   req: Request,
   res: Response
@@ -119,6 +104,27 @@ export const getPlayerById = async (
   } catch (error) {
     return res.status(400).send({
       message: 'Erro buscando jogador'
+    });
+  }
+};
+
+export const listPlayersByTeam = async (
+  req: Request,
+  res: Response
+) => {
+  const { teamId } = req.params;
+
+  try {
+    const players = await Players.findAll({
+      where: {
+        teamId
+      }
+    });
+
+    return res.status(200).json(players);
+  } catch (error) {
+    return res.status(400).send({
+      message: 'Erro listando jogadores'
     });
   }
 };
