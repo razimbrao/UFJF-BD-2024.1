@@ -6,7 +6,7 @@ export interface TournamentModel extends Model<InferAttributes<TournamentModel>,
   name: string;
   start: string;
   end: string;
-  winnerTeam: string;
+  winnerTeam: string | null;
   createdAt: string;
   updatedAt: string;
 }
@@ -33,7 +33,7 @@ export const Tournaments = sequelize.define<TournamentModel>(
     },
     winnerTeam: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'teams',
         key: 'id'
