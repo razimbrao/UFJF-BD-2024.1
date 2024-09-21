@@ -3,9 +3,9 @@ import { sequelize } from '../datasource';
 
 export interface PlayerModel extends Model<InferAttributes<PlayerModel>, InferCreationAttributes<PlayerModel>> {
   id: CreationOptional<string>;
-  user_id: string;
-  riot_id: string;
-  team_id: string;
+  userId: string;
+  riotId: string;
+  teamId: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -18,25 +18,28 @@ export const Players = sequelize.define<PlayerModel>(
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true
     },
-    user_id: {
+    userId: {
       type: DataTypes.STRING,
       allowNull: false,
       references: {
         model: 'users',
         key: 'id'
-      }
+      },
+      field: 'user_id'
     },
-    riot_id: {
+    riotId: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      field: 'riot_id'
     },
-    team_id: {
+    teamId: {
       type: DataTypes.STRING,
       allowNull: false,
       references: {
         model: 'teams',
         key: 'id'
-      }
+      },
+      field: 'team_id'
     },
     createdAt: {
       type: DataTypes.DATE,
