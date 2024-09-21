@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import { Players } from '../../database/models/Players';
+import { verifyUserById } from '../services/users.service';
+import { verifyTeamSize } from '../services/teams.service';
 
 export const createPlayer = async (
   req: Request,
@@ -8,6 +10,9 @@ export const createPlayer = async (
   const { userId, riotId, teamId } = req.body;
 
   try {
+    await verifyUserById(userId);
+    await verifyTeamSize(teamId);
+
     const newPlayer = await Players.create({
       userId,
       riotId,
@@ -30,6 +35,9 @@ export const updatePlayer = async (
   const { userId, riotId, teamId } = req.body;
 
   try {
+    await verifyUserById(userId);
+    await verifyTeamSize(teamId);
+
     const player = await Players.findByPk(id);
 
     if (!player) {

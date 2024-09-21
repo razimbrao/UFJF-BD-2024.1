@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { Tournaments } from '../../database/models/Tournaments';
+import { verifyTeamById } from '../services/teams.service';
 
 export const createTournament = async (
   req: Request,
@@ -30,6 +31,7 @@ export const updateTournament = async (
   const { name, start, end, winnerTeam } = req.body;
 
   try {
+    await verifyTeamById(winnerTeam);
     const tournament = await Tournaments.findByPk(id);
 
     if (!tournament) {

@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import { Matches } from '../../database/models/Matches';
+import { verifyTeamById } from '../services/teams.service';
+import { verifyTournamentById } from '../services/tournaments.service';
 
 export const createMatch = async (
   req: Request,
@@ -7,6 +9,10 @@ export const createMatch = async (
 ) => {
   const { tournamentId, teamA, teamB, result } = req.body;
   try {
+    await verifyTeamById(teamA);
+    await verifyTeamById(teamB);
+    await verifyTournamentById(tournamentId);
+
     const newMatch = await Matches.create({
       tournamentId,
       teamA,
@@ -30,8 +36,11 @@ export const updateMatch = async (
   const { tournamentId, teamA, teamB, result } = req.body;
 
   try {
-    const match = await Matches.findByPk(id);
+    await verifyTeamById(teamA);
+    await verifyTeamById(teamB);
+    await verifyTournamentById(tournamentId);
 
+    const match = await Matches.findByPk(id);
     if (!match) {
       return res.status(404).send({
         message: 'Partida não encontrada'
@@ -60,7 +69,6 @@ export const deleteMatch = async (
   const { id } = req.params;
   try {
     const match = await Matches.findByPk(id);
-
     if (!match) {
       return res.status(404).send({
         message: 'Partida não encontrada'
@@ -84,7 +92,6 @@ export const getMatchById = async (
   const { id } = req.params;
   try {
     const match = await Matches.findByPk(id);
-
     if (!match) {
       return res.status(404).send({
         message: 'Partida não encontrada'
