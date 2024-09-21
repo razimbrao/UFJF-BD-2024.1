@@ -5,8 +5,8 @@ export interface LocationModel extends Model<InferAttributes<LocationModel>, Inf
   id: CreationOptional<string>;
   name: string;
   status: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: CreationOptional<string>;
+  updatedAt: CreationOptional<string>;
 }
 
 export const Locations = sequelize.define<LocationModel>(

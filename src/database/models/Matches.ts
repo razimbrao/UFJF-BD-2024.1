@@ -8,8 +8,8 @@ export interface MatchModel extends Model<InferAttributes<MatchModel>, InferCrea
   teamB: string;
   tournamentId: string;
   result: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: CreationOptional<string>;
+  updatedAt: CreationOptional<string>;
 }
 
 export const Matches = sequelize.define<MatchModel>(

@@ -8,8 +8,8 @@ export interface MapModel extends Model<InferAttributes<MapModel>, InferCreation
   matchId: string;
   locationId: string;
   result: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: CreationOptional<string>;
+  updatedAt: CreationOptional<string>;
 }
 
 export const Maps = sequelize.define<MapModel>(

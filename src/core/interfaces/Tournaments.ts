@@ -3,7 +3,20 @@ export interface ITournament {
   name: string;
   start: string;
   end: string;
-  winnerTeam: string;
+  winnerTeam?: string;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface ICreateTournament {
+  name: string;
+  start: string;
+  end: string;
+}
+
+export interface IUpdateTournament {
+  name?: string;
+  start?: string;
+  end?: string;
+  winnerTeam?: string;
 }

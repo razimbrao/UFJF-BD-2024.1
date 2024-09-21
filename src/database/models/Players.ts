@@ -6,8 +6,8 @@ export interface PlayerModel extends Model<InferAttributes<PlayerModel>, InferCr
   userId: string;
   riotId: string;
   teamId: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: CreationOptional<string>;
+  updatedAt: CreationOptional<string>;
 }
 
 export const Players = sequelize.define<PlayerModel>(

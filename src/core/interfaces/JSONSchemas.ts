@@ -67,11 +67,11 @@ export const schemas: { [key: string]: object } = {
         type: 'string',
         format: 'uuid'
       },
-      teamAId: {
+      teamA: {
         type: 'string',
         format: 'uuid'
       },
-      teamBId: {
+      teamB: {
         type: 'string',
         format: 'uuid'
       },

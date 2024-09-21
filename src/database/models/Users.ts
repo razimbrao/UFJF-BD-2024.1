@@ -6,8 +6,8 @@ export interface UserModel extends Model<InferAttributes<UserModel>, InferCreati
   email: string;
   password: string;
   name: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: CreationOptional<string>;
+  updatedAt: CreationOptional<string>;
 }
 
 export const Users = sequelize.define<UserModel>(

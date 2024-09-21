@@ -8,22 +8,22 @@ export interface TeamModel extends Model<InferAttributes<TeamModel>, InferCreati
   id: CreationOptional<string>;
   name: string;
   logo: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: CreationOptional<string>;
+  updatedAt: CreationOptional<string>;
 }
 
 export interface TeamsTournamentsModel extends Model<InferAttributes<TeamsTournamentsModel>, InferCreationAttributes<TeamsTournamentsModel>> {
   teamId: string;
   tournamentId: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: CreationOptional<string>;
+  updatedAt: CreationOptional<string>;
 }
 
 export interface TeamsMatchesModel extends Model<InferAttributes<TeamsMatchesModel>, InferCreationAttributes<TeamsMatchesModel>> {
   teamId: string;
   matchId: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: CreationOptional<string>;
+  updatedAt: CreationOptional<string>;
 }
 
 export const Teams = sequelize.define<TeamModel>(
