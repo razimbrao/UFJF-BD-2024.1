@@ -46,12 +46,11 @@ export class TournamentRoutes extends CommonRoutesConfig {
       );
 
     this.app
-      .route('/tournament/:id/team')
+      .route('/tournament/:id/match')
       .get(
         validateUuid,
-        controller.listTeamByTournament
+        controller.listMatchesByTournament
       );
-
     return this.app;
   }
 }

@@ -23,7 +23,8 @@ export const createMatch = async (
     return res.status(201).json(newMatch.dataValues);
   } catch (error) {
     return res.status(400).send({
-      message: 'Erro criando partida'
+      message: 'Erro criando partida',
+      error: (error as Error).message
     });
   }
 };
@@ -57,7 +58,8 @@ export const updateMatch = async (
     return res.status(200).json(match.dataValues);
   } catch (error) {
     return res.status(400).send({
-      message: 'Erro atualizando partida'
+      message: 'Erro atualizando partida',
+      error: (error as Error).message
     });
   }
 };
@@ -80,7 +82,8 @@ export const deleteMatch = async (
     return res.status(204).send();
   } catch (error) {
     return res.status(400).send({
-      message: 'Erro deletando partida'
+      message: 'Erro deletando partida',
+      error: (error as Error).message
     });
   }
 };
@@ -101,7 +104,8 @@ export const getMatchById = async (
     return res.status(200).json(match.dataValues);
   } catch (error) {
     return res.status(400).send({
-      message: 'Erro buscando partida'
+      message: 'Erro buscando partida',
+      error: (error as Error).message
     });
   }
 };
@@ -116,7 +120,8 @@ export const listMatch = async (
     return res.status(200).json(matches);
   } catch (error) {
     return res.status(400).send({
-      message: 'Erro listando partidas'
+      message: 'Erro listando partidas',
+      error: (error as Error).message
     });
   }
 };
@@ -136,7 +141,8 @@ export const listMatchByTournament = async (
     return res.status(200).json(matches);
   } catch (error) {
     return res.status(400).send({
-      message: 'Erro listando partidas'
+      message: 'Erro listando partidas',
+      error: (error as Error).message
     });
   }
 };

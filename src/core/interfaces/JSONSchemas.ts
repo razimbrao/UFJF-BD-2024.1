@@ -80,7 +80,7 @@ export const schemas: { [key: string]: object } = {
         maxLength: 50
       }
     },
-    required: ['tournamentId', 'teamAId', 'teamBId', 'result']
+    required: ['tournamentId', 'teamA', 'teamB', 'result']
   },
   '/user': {
     id: '/user',
@@ -115,5 +115,16 @@ export const schemas: { [key: string]: object } = {
       }
     },
     required: ['name', 'status']
+  },
+  '/team/tournament': {
+    id: '/team/tournament',
+    type: 'object',
+    properties: {
+      teamId: {
+        type: 'string',
+        format: 'uuid'
+      }
+    },
+    required: ['teamId']
   }
 };

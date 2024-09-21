@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
 import { Tournaments } from '../../database/models/Tournaments';
 import { verifyTeamById } from '../services/teams.service';
-import { Teams } from '../../database/models/Teams';
+import { Teams, TeamsTournaments } from '../../database/models/Teams';
 import { ITournamentWithTeams } from '../interfaces/Tournaments';
+import { Matches } from '../../database/models/Matches';
 
 export const createTournament = async (
   req: Request,
@@ -20,7 +21,8 @@ export const createTournament = async (
     return res.status(201).json(newTournament.dataValues);
   } catch (error) {
     return res.status(400).send({
-      message: 'Erro criando torneio'
+      message: 'Erro criando torneio',
+      error: (error as Error).message
     });
   }
 };
@@ -33,7 +35,9 @@ export const updateTournament = async (
   const { name, start, end, winnerTeam } = req.body;
 
   try {
-    await verifyTeamById(winnerTeam);
+    if (winnerTeam) {
+      await verifyTeamById(winnerTeam);
+    }
     const tournament = await Tournaments.findByPk(id);
 
     if (!tournament) {
@@ -52,7 +56,8 @@ export const updateTournament = async (
     return res.status(200).json(tournament.dataValues);
   } catch (error) {
     return res.status(400).send({
-      message: 'Erro atualizando torneio'
+      message: 'Erro atualizando torneio',
+      error: (error as Error).message
     });
   }
 };
@@ -77,7 +82,8 @@ export const deleteTournament = async (
     return res.status(204).send();
   } catch (error) {
     return res.status(400).send({
-      message: 'Erro deletando torneio'
+      message: 'Erro deletando torneio',
+      error: (error as Error).message
     });
   }
 };
@@ -92,7 +98,8 @@ export const listTournament = async (
     return res.status(200).json(tournaments);
   } catch (error) {
     return res.status(400).send({
-      message: 'Erro listando torneios'
+      message: 'Erro listando torneios',
+      error: (error as Error).message
     });
   }
 };
@@ -115,7 +122,8 @@ export const getTournamentById = async (
     return res.status(200).json(tournament);
   } catch (error) {
     return res.status(400).send({
-      message: 'Erro buscando torneio'
+      message: 'Erro buscando torneio',
+      error: (error as Error).message
     });
   }
 };
@@ -146,7 +154,66 @@ export const listTeamByTournament = async (
     return res.status(200).json(teams);
   } catch (error) {
     return res.status(400).send({
-      message: 'Erro listando times do torneio'
+      message: 'Erro listando times torneio',
+      error: (error as Error).message
+    });
+  }
+};
+
+export const addTeamToTournament = async (
+  req: Request,
+  res: Response
+) => {
+  const { id: tournamentId } = req.params;
+  const { teamId } = req.body;
+  try {
+    const tournament = await Tournaments.findByPk(tournamentId);
+
+    if (!tournament) {
+      return res.status(404).send({
+        message: 'Torneio não encontrado'
+      });
+    }
+
+    const team = await Teams.findByPk(teamId);
+
+    if (!team) {
+      return res.status(404).send({
+        message: 'Time não encontrado'
+      });
+    }
+
+    await TeamsTournaments.create({
+      tournamentId,
+      teamId
+    });
+
+    return res.status(204).send();
+  } catch (error) {
+    return res.status(400).send({
+      message: 'Erro adicionando time ao torneio',
+      error: (error as Error).message
+    });
+  }
+};
+
+export const listMatchesByTournament = async (
+  req: Request,
+  res: Response
+) => {
+  const { id: tournamentId } = req.params;
+  try {
+    const matches = await Matches.findAll({
+      where: {
+        tournamentId
+      }
+    });
+
+    return res.status(200).json(matches);
+  } catch (error) {
+    return res.status(400).send({
+      message: 'Erro listando partidas',
+      error: (error as Error).message
     });
   }
 };

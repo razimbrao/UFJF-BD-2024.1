@@ -22,7 +22,8 @@ export const createPlayer = async (
     return res.status(201).json(newPlayer.dataValues);
   } catch (error) {
     return res.status(400).send({
-      message: 'Erro criando jogador'
+      message: 'Erro criando jogador',
+      error: (error as Error).message
     });
   }
 };
@@ -55,7 +56,8 @@ export const updatePlayer = async (
     return res.status(200).json(player.dataValues);
   } catch (error) {
     return res.status(400).send({
-      message: 'Erro atualizando jogador'
+      message: 'Erro atualizando jogador',
+      error: (error as Error).message
     });
   }
 };
@@ -80,7 +82,8 @@ export const deletePlayer = async (
     return res.status(204).send();
   } catch (error) {
     return res.status(400).send({
-      message: 'Erro deletando jogador'
+      message: 'Erro deletando jogador',
+      error: (error as Error).message
     });
   }
 };
@@ -103,7 +106,8 @@ export const getPlayerById = async (
     return res.status(200).json(player);
   } catch (error) {
     return res.status(400).send({
-      message: 'Erro buscando jogador'
+      message: 'Erro buscando jogador',
+      error: (error as Error).message
     });
   }
 };
@@ -112,7 +116,7 @@ export const listPlayersByTeam = async (
   req: Request,
   res: Response
 ) => {
-  const { teamId } = req.params;
+  const { id: teamId } = req.params;
 
   try {
     const players = await Players.findAll({
@@ -124,7 +128,8 @@ export const listPlayersByTeam = async (
     return res.status(200).json(players);
   } catch (error) {
     return res.status(400).send({
-      message: 'Erro listando jogadores'
+      message: 'Erro listando jogadores',
+      error: (error as Error).message
     });
   }
 };

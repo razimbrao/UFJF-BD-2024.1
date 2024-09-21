@@ -16,7 +16,8 @@ export const createTeam = async (
     return res.status(201).json(newTeam.dataValues);
   } catch (error) {
     return res.status(400).send({
-      message: 'Erro criando time'
+      message: 'Erro criando time',
+      error: (error as Error).message
     });
   }
 };
@@ -45,7 +46,8 @@ export const updateTeam = async (
     return res.status(200).json(team.dataValues);
   } catch (error) {
     return res.status(400).send({
-      message: 'Erro atualizando time'
+      message: 'Erro atualizando time',
+      error: (error as Error).message
     });
   }
 };
@@ -69,7 +71,8 @@ export const deleteTeam = async (
     return res.status(200).json(team.dataValues);
   } catch (error) {
     return res.status(400).send({
-      message: 'Erro deletando time'
+      message: 'Erro deletando time',
+      error: (error as Error).message
     });
   }
 };
@@ -92,7 +95,8 @@ export const getTeamById = async (
     return res.status(200).json(team.dataValues);
   } catch (error) {
     return res.status(400).send({
-      message: 'Erro buscando time'
+      message: 'Erro buscando time',
+      error: (error as Error).message
     });
   }
 };
@@ -107,7 +111,8 @@ export const listTeam = async (
     return res.status(200).json(teams);
   } catch (error) {
     return res.status(400).send({
-      message: 'Erro listando times'
+      message: 'Erro listando times',
+      error: (error as Error).message
     });
   }
 };
