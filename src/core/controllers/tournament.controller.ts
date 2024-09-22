@@ -35,7 +35,6 @@ export const updateTournament = async (
 ) => {
   const { id } = req.params;
   const { nome, dataInicio, dataFim, vencedor } = req.body;
-
   try {
     if (vencedor) {
       await verifyTeamById(vencedor);
@@ -52,7 +51,7 @@ export const updateTournament = async (
       nome,
       dataInicio,
       dataFim,
-      vencedor
+      vencedor: parseInt(vencedor, 10)
     });
 
     return res.status(200).json(tournament.dataValues);

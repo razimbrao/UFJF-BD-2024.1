@@ -6,7 +6,7 @@ export interface CampeonatoModel extends Model<InferAttributes<CampeonatoModel>,
   nome: string;
   dataInicio: string;
   dataFim: string;
-  vencedor: string | null;
+  vencedor: number | null;
   createdAt: CreationOptional<string>;
   updatedAt: CreationOptional<string>;
 }

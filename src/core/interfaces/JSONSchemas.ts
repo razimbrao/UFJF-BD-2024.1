@@ -34,7 +34,8 @@ export const schemas: { [key: string]: object } = {
         minLength: 8
       },
       vencedor: {
-        type: 'integer'
+        type: 'string',
+        format: 'integer'
       }
     },
     required: ['nome', 'dataInicio', 'dataFim']
