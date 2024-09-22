@@ -13,12 +13,12 @@ module.exports = {
         },
         primaryKey: true
       },
-      match_id: {
+      partida_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'times',
-          key: 'time_id'
+          model: 'partidas',
+          key: 'partida_id'
         },
         primaryKey: true
       },
