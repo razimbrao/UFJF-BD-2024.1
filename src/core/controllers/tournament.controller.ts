@@ -150,7 +150,7 @@ export const listTeamByTournament = async (
       });
     }
 
-    const teams = tournament.teams;
+    const teams = tournament.times;
 
     return res.status(200).json(teams);
   } catch (error) {
