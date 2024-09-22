@@ -32,10 +32,6 @@ export const schemas: { [key: string]: object } = {
         type: 'string',
         format: 'date',
         minLength: 8
-      },
-      vencedor: {
-        type: 'string',
-        format: 'integer'
       }
     },
     required: ['nome', 'dataInicio', 'dataFim']
