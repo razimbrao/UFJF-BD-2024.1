@@ -21,7 +21,7 @@ export class TeamTournamentRoutes extends CommonRoutesConfig {
       .route('/tournament/:id/team')
       .post(
         validateId,
-        verifyBody('/team/tournament'),
+        verifyBody('/time/campeonato'),
         controller.addTeamToTournament
       );
     return this.app;

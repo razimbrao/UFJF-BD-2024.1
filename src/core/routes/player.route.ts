@@ -13,7 +13,7 @@ export class PlayerRoutes extends CommonRoutesConfig {
     this.app
       .route('/player')
       .post(
-        verifyBody('/player'),
+        verifyBody('/jogador'),
         controller.createPlayer
       );
 
@@ -21,7 +21,7 @@ export class PlayerRoutes extends CommonRoutesConfig {
       .route('/player/:id')
       .put(
         validateId,
-        verifyBody('/player'),
+        verifyBody('/jogador'),
         controller.updatePlayer
       );
 

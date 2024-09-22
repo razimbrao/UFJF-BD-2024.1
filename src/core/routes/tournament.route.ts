@@ -13,7 +13,7 @@ export class TournamentRoutes extends CommonRoutesConfig {
     this.app
       .route('/tournament')
       .post(
-        verifyBody('/tournament'),
+        verifyBody('/campeonato'),
         controller.createTournament
       );
 
@@ -21,7 +21,7 @@ export class TournamentRoutes extends CommonRoutesConfig {
       .route('/tournament/:id')
       .put(
         validateId,
-        verifyBody('/tournament'),
+        verifyBody('/campeonato'),
         controller.updateTournament
       );
 

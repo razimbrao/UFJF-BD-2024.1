@@ -13,7 +13,7 @@ export class TeamRoutes extends CommonRoutesConfig {
     this.app
       .route('/team')
       .post(
-        verifyBody('/team'),
+        verifyBody('/time'),
         controller.createTeam
       );
 
@@ -21,7 +21,7 @@ export class TeamRoutes extends CommonRoutesConfig {
       .route('/team/:id')
       .put(
         validateId,
-        verifyBody('/team'),
+        verifyBody('/time'),
         controller.updateTeam
       );
 

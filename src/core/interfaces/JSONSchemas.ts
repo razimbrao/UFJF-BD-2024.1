@@ -69,12 +69,12 @@ export const schemas: { [key: string]: object } = {
       timeB: {
         type: 'integer'
       },
-      result: {
+      resultado: {
         type: 'string',
         maxLength: 50
       }
     },
-    required: ['campId', 'timeA', 'timeB', 'result']
+    required: ['campId', 'timeA', 'timeB', 'resultado']
   },
   '/usuario': {
     id: '/usuario',

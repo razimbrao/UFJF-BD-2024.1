@@ -12,6 +12,7 @@ export const createTournament = async (
   const { nome, dataInicio, dataFim } = req.body;
 
   try {
+    console.log(nome, dataInicio, dataFim);
     const newTournament = await Campeonatos.create({
       nome,
       dataInicio,
@@ -20,6 +21,7 @@ export const createTournament = async (
 
     return res.status(201).json(newTournament.dataValues);
   } catch (error) {
+    console.log(error);
     return res.status(400).send({
       message: 'Erro criando torneio',
       error: (error as Error).message

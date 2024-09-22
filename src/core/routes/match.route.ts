@@ -13,7 +13,7 @@ export class MatchRoutes extends CommonRoutesConfig {
     this.app
       .route('/match')
       .post(
-        verifyBody('/match'),
+        verifyBody('/partida'),
         controller.createMatch
       );
 
@@ -21,7 +21,7 @@ export class MatchRoutes extends CommonRoutesConfig {
       .route('/match/:id')
       .put(
         validateId,
-        verifyBody('/match'),
+        verifyBody('/partida'),
         controller.updateMatch
       );
 
