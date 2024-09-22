@@ -31,7 +31,7 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
-      campeonato_id: {
+      camp_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
@@ -41,7 +41,7 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
-      resulto: {
+      resultado: {
         type: Sequelize.STRING,
         allowNull: false
       },

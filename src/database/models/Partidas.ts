@@ -65,5 +65,5 @@ export const Partidas = sequelize.define<PartidaModel>(
   }
 );
 
-Campeonatos.hasMany(Partidas, { foreignKey: 'campeonatoId' });
-Partidas.belongsTo(Campeonatos, { foreignKey: 'campeonatoId' });
+Campeonatos.hasMany(Partidas, { foreignKey: 'campId' });
+Partidas.belongsTo(Campeonatos, { foreignKey: 'campId' });
