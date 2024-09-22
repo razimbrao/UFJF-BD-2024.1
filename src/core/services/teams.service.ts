@@ -1,5 +1,5 @@
 import { Jogadores } from '../../database/models/Jogadores';
-import { Times } from '../../database/models/Times';
+import { Times, TimesCampeonatos } from '../../database/models/Times';
 import { ITimeComJogadores } from '../interfaces/Times';
 
 export const verifyTeamById = async (teamId: string) => {
@@ -26,5 +26,17 @@ export const verifyTeamSize = async (teamId: string) => {
 
   if (team.jogadores.length >= 5) {
     throw new Error('Time já possui 5 jogadores');
+  }
+};
+
+export const verifyTeamTournament = async (timeId: string, campId: string) => {
+  const timeCamp = await TimesCampeonatos.findOne(
+    {
+      where: { timeId, campId }
+    }
+  );
+
+  if (!timeCamp) {
+    throw new Error('Time não está inscrito nesse campeonato');
   }
 };

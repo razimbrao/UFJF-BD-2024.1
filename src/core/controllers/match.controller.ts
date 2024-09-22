@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { Partidas } from '../../database/models/Partidas';
-import { verifyTeamById } from '../services/teams.service';
-import { verifyTournamentById } from '../services/tournaments.service';
+import { verifyTeamTournament } from '../services/teams.service';
 
 export const createMatch = async (
   req: Request,
@@ -9,9 +8,8 @@ export const createMatch = async (
 ) => {
   const { campId, timeA, timeB, resultado } = req.body;
   try {
-    await verifyTeamById(timeA);
-    await verifyTeamById(timeB);
-    await verifyTournamentById(campId);
+    await verifyTeamTournament(timeA, campId);
+    await verifyTeamTournament(timeB, campId);
 
     const newMatch = await Partidas.create({
       campId,
@@ -37,9 +35,8 @@ export const updateMatch = async (
   const { campId, timeA, timeB, resultado } = req.body;
 
   try {
-    await verifyTeamById(timeA);
-    await verifyTeamById(timeB);
-    await verifyTournamentById(campId);
+    await verifyTeamTournament(timeA, campId);
+    await verifyTeamTournament(timeB, campId);
 
     const match = await Partidas.findByPk(id);
     if (!match) {
