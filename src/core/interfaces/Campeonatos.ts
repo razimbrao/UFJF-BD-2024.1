@@ -12,5 +12,5 @@ export interface ICampeonato {
 }
 
 export interface ICampeonatoComTimes extends CampeonatoModel {
-  teams: TimeModel[];
+  times: TimeModel[];
 }
