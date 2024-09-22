@@ -1,7 +1,7 @@
 import express from 'express';
 import { CommonRoutesConfig } from '../../common/routes.config';
 import { verifyBody } from '../middlewares/body.middleware';
-import { validateUuid } from '../middlewares/identifier.middleware';
+import { validateId } from '../middlewares/identifier.middleware';
 import * as controller from '../controllers/team.controller';
 
 export class TeamRoutes extends CommonRoutesConfig {
@@ -20,7 +20,7 @@ export class TeamRoutes extends CommonRoutesConfig {
     this.app
       .route('/team/:id')
       .put(
-        validateUuid,
+        validateId,
         verifyBody('/team'),
         controller.updateTeam
       );
@@ -28,7 +28,7 @@ export class TeamRoutes extends CommonRoutesConfig {
     this.app
       .route('/team/:id')
       .delete(
-        validateUuid,
+        validateId,
         controller.deleteTeam
       );
 
@@ -41,7 +41,7 @@ export class TeamRoutes extends CommonRoutesConfig {
     this.app
       .route('/team/:id')
       .get(
-        validateUuid,
+        validateId,
         controller.getTeamById
       );
 

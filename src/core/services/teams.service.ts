@@ -1,9 +1,9 @@
-import { Players } from '../../database/models/Players';
-import { Teams } from '../../database/models/Teams';
-import { ITeamWithPlayers } from '../interfaces/Teams';
+import { Jogadores } from '../../database/models/Jogadores';
+import { Times } from '../../database/models/Times';
+import { ITimeComJogadores } from '../interfaces/Times';
 
 export const verifyTeamById = async (teamId: string) => {
-  const team = await Teams.findByPk(teamId);
+  const team = await Times.findByPk(teamId);
   if (!team) {
     throw new Error('Time não encontrado');
   }
@@ -12,19 +12,19 @@ export const verifyTeamById = async (teamId: string) => {
 };
 
 export const verifyTeamSize = async (teamId: string) => {
-  const team = await Teams.findOne({
-    where: { id: teamId },
+  const team = await Times.findOne({
+    where: { timeId: teamId },
     include: {
-      model: Players,
-      as: 'players'
+      model: Jogadores,
+      as: 'jogadores'
     }
-  }) as ITeamWithPlayers;
+  }) as ITimeComJogadores;
 
   if (!team) {
     throw new Error('Time não encontrado');
   }
 
-  if (team.players.length >= 5) {
+  if (team.jogadores.length >= 5) {
     throw new Error('Time já possui 5 jogadores');
   }
 };

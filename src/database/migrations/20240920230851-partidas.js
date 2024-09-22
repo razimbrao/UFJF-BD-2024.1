@@ -3,34 +3,45 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('maps', {
+    await queryInterface.createTable('partidas', {
       id: {
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        unique: true,
         primaryKey: true,
         allowNull: false
       },
-      match_id: {
-        type: Sequelize.UUID,
+      time_a: {
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'matches',
-          key: 'id'
+          model: 'times',
+          key: 'time_id'
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
-      location_id: {
-        type: Sequelize.UUID,
+      time_b: {
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'locations',
-          key: 'id'
+          model: 'times',
+          key: 'time_id'
         },
         onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
+        onDelete: 'CASCADE'
       },
-      result: {
+      campeonato_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'campeonatos',
+          key: 'camp_id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
+      },
+      resulto: {
         type: Sequelize.STRING,
         allowNull: false
       },
@@ -48,6 +59,6 @@ module.exports = {
   },
 
   async down (queryInterface) {
-    await queryInterface.dropTable('maps');
+    await queryInterface.dropTable('partidas');
   }
 };

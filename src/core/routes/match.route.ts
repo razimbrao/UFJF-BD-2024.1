@@ -1,7 +1,7 @@
 import express from 'express';
 import { CommonRoutesConfig } from '../../common/routes.config';
 import { verifyBody } from '../middlewares/body.middleware';
-import { validateUuid } from '../middlewares/identifier.middleware';
+import { validateId } from '../middlewares/identifier.middleware';
 import * as controller from '../controllers/match.controller';
 
 export class MatchRoutes extends CommonRoutesConfig {
@@ -20,7 +20,7 @@ export class MatchRoutes extends CommonRoutesConfig {
     this.app
       .route('/match/:id')
       .put(
-        validateUuid,
+        validateId,
         verifyBody('/match'),
         controller.updateMatch
       );
@@ -28,21 +28,21 @@ export class MatchRoutes extends CommonRoutesConfig {
     this.app
       .route('/match/:id')
       .delete(
-        validateUuid,
+        validateId,
         controller.deleteMatch
       );
 
     this.app
       .route('/tournament/:id/match')
       .get(
-        validateUuid,
+        validateId,
         controller.listMatchByTournament
       );
 
     this.app
       .route('/match/:id')
       .get(
-        validateUuid,
+        validateId,
         controller.getMatchById
       );
 

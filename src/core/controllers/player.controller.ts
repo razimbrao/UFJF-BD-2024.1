@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Players } from '../../database/models/Players';
+import { Jogadores } from '../../database/models/Jogadores';
 import { verifyUserById } from '../services/users.service';
 import { verifyTeamSize } from '../services/teams.service';
 
@@ -7,16 +7,16 @@ export const createPlayer = async (
   req: Request,
   res: Response
 ) => {
-  const { userId, riotId, teamId } = req.body;
+  const { usuarioId, riotId, timeId } = req.body;
 
   try {
-    await verifyUserById(userId);
-    await verifyTeamSize(teamId);
+    await verifyUserById(usuarioId);
+    await verifyTeamSize(timeId);
 
-    const newPlayer = await Players.create({
-      userId,
+    const newPlayer = await Jogadores.create({
+      usuarioId,
       riotId,
-      teamId
+      timeId
     });
 
     return res.status(201).json(newPlayer.dataValues);
@@ -33,13 +33,13 @@ export const updatePlayer = async (
   res: Response
 ) => {
   const { id } = req.params;
-  const { userId, riotId, teamId } = req.body;
+  const { usuarioId, riotId, timeId } = req.body;
 
   try {
-    await verifyUserById(userId);
-    await verifyTeamSize(teamId);
+    await verifyUserById(usuarioId);
+    await verifyTeamSize(timeId);
 
-    const player = await Players.findByPk(id);
+    const player = await Jogadores.findByPk(id);
 
     if (!player) {
       return res.status(404).send({
@@ -48,9 +48,9 @@ export const updatePlayer = async (
     }
 
     await player.update({
-      userId,
+      usuarioId,
       riotId,
-      teamId
+      timeId
     });
 
     return res.status(200).json(player.dataValues);
@@ -69,7 +69,7 @@ export const deletePlayer = async (
   const { id } = req.params;
 
   try {
-    const player = await Players.findByPk(id);
+    const player = await Jogadores.findByPk(id);
 
     if (!player) {
       return res.status(404).send({
@@ -95,7 +95,7 @@ export const getPlayerById = async (
   const { id } = req.params;
 
   try {
-    const player = await Players.findByPk(id);
+    const player = await Jogadores.findByPk(id);
 
     if (!player) {
       return res.status(404).send({
@@ -116,12 +116,12 @@ export const listPlayersByTeam = async (
   req: Request,
   res: Response
 ) => {
-  const { id: teamId } = req.params;
+  const { id: timeId } = req.params;
 
   try {
-    const players = await Players.findAll({
+    const players = await Jogadores.findAll({
       where: {
-        teamId
+        timeId
       }
     });
 

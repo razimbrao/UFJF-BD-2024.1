@@ -1,45 +1,41 @@
 import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
 import { sequelize } from '../datasource';
 
-export interface PlayerModel extends Model<InferAttributes<PlayerModel>, InferCreationAttributes<PlayerModel>> {
-  id: CreationOptional<string>;
-  userId: string;
+export interface JogadorModel extends Model<InferAttributes<JogadorModel>, InferCreationAttributes<JogadorModel>> {
+  usuarioId: string;
   riotId: string;
-  teamId: string;
+  timeId: string;
   createdAt: CreationOptional<string>;
   updatedAt: CreationOptional<string>;
 }
 
-export const Players = sequelize.define<PlayerModel>(
+export const Jogadores = sequelize.define<JogadorModel>(
   'players',
   {
-    id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-      primaryKey: true
-    },
-    userId: {
-      type: DataTypes.STRING,
+
+    usuarioId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'users',
-        key: 'id'
+        model: 'usuarios',
+        key: 'usuario_id'
       },
-      field: 'user_id'
+      field: 'usuario_id',
+      primaryKey: true
     },
     riotId: {
       type: DataTypes.STRING,
       allowNull: false,
       field: 'riot_id'
     },
-    teamId: {
+    timeId: {
       type: DataTypes.STRING,
       allowNull: false,
       references: {
-        model: 'teams',
-        key: 'id'
+        model: 'times',
+        key: 'time_id'
       },
-      field: 'team_id'
+      field: 'time_id'
     },
     createdAt: {
       type: DataTypes.DATE,

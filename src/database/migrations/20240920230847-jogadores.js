@@ -3,31 +3,30 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('tournaments', {
-      id: {
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
-        allowNull: false,
-        primaryKey: true
-      },
-      name: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      start: {
-        type: Sequelize.DATE,
-        allowNull: false
-      },
-      end: {
-        type: Sequelize.DATE,
-        allowNull: false
-      },
-      winner_team: {
-        type: Sequelize.UUID,
+    await queryInterface.createTable('jogadores', {
+      usuario_id: {
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'teams',
-          key: 'id'
+          model: 'usuarios',
+          key: 'usuario_id'
+        },
+        unique: true,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        primaryKey: true
+      },
+      riot_id: {
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: false
+      },
+      team_id: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'times',
+          key: 'time_id'
         },
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL'
@@ -46,6 +45,6 @@ module.exports = {
   },
 
   async down (queryInterface) {
-    await queryInterface.dropTable('tournaments');
+    await queryInterface.dropTable('jogadores');
   }
 };

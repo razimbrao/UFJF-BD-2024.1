@@ -1,33 +1,34 @@
 import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
 import { sequelize } from '../datasource';
 
-export interface UserModel extends Model<InferAttributes<UserModel>, InferCreationAttributes<UserModel>> {
-  id: CreationOptional<string>;
+export interface UsuarioModel extends Model<InferAttributes<UsuarioModel>, InferCreationAttributes<UsuarioModel>> {
+  usuarioId: CreationOptional<number>;
   email: string;
-  password: string;
-  name: string;
+  senha: string;
+  nome: string;
   createdAt: CreationOptional<string>;
   updatedAt: CreationOptional<string>;
 }
 
-export const Users = sequelize.define<UserModel>(
-  'users',
+export const Usuarios = sequelize.define<UsuarioModel>(
+  'usuarios',
   {
-    id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-      primaryKey: true
+    usuarioId: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+      field: 'usuario_id'
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true
     },
-    password: {
+    senha: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    name: {
+    nome: {
       type: DataTypes.STRING,
       allowNull: false
     },

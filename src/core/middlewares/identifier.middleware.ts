@@ -3,34 +3,18 @@ import { Request, NextFunction, Response } from 'express';
 
 const validator = new Validator();
 
-const uuidSchema = {
+const idSchema = {
   id: '/uuid',
-  type: 'string',
-  pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'
+  type: 'integer'
 };
 
-export const validateUuid = async (req: Request, res: Response, next: NextFunction) => {
+export const validateId = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
-    const validation = validator.validate(id, uuidSchema);
+    const validation = validator.validate(id, idSchema);
 
     if (!validation.valid) {
-      throw new Error('UUID inválido');
-    }
-
-    next();
-  } catch (error) {
-    return res.status(400).json({ message: (error as Error).message });
-  }
-};
-
-export const validateSecondUuid = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const { uuid } = req.params;
-    const validation = validator.validate(uuid, uuidSchema);
-
-    if (!validation.valid) {
-      throw new Error('UUID inválido');
+      throw new Error('Id inválido');
     }
 
     next();

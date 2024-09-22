@@ -3,24 +3,21 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('teams_tournaments', {
-      team_id: {
-        type: Sequelize.UUID, // Mudar para UUID
+    await queryInterface.createTable('times', {
+      time_id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        unique: true,
         allowNull: false,
-        references: {
-          model: 'teams',
-          key: 'id'
-        },
         primaryKey: true
       },
-      tournament_id: {
-        type: Sequelize.UUID, // Mudar para UUID
-        allowNull: false,
-        references: {
-          model: 'tournaments',
-          key: 'id'
-        },
-        primaryKey: true
+      nome: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      logo: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
       created_at: {
         type: Sequelize.DATE,
@@ -36,6 +33,6 @@ module.exports = {
   },
 
   async down (queryInterface) {
-    await queryInterface.dropTable('teams_tournaments');
+    await queryInterface.dropTable('times');
   }
 };

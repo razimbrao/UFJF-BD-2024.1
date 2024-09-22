@@ -1,15 +1,15 @@
 import { Request, Response } from 'express';
-import { Teams } from '../../database/models/Teams';
+import { Times } from '../../database/models/Times';
 
 export const createTeam = async (
   req: Request,
   res: Response
 ) => {
-  const { name, logo } = req.body;
+  const { nome, logo } = req.body;
 
   try {
-    const newTeam = await Teams.create({
-      name,
+    const newTeam = await Times.create({
+      nome,
       logo
     });
 
@@ -27,10 +27,10 @@ export const updateTeam = async (
   res: Response
 ) => {
   const { id } = req.params;
-  const { name, logo } = req.body;
+  const { nome, logo } = req.body;
 
   try {
-    const team = await Teams.findByPk(id);
+    const team = await Times.findByPk(id);
 
     if (!team) {
       return res.status(404).send({
@@ -39,7 +39,7 @@ export const updateTeam = async (
     }
 
     await team.update({
-      name,
+      nome,
       logo
     });
 
@@ -58,7 +58,7 @@ export const deleteTeam = async (
 ) => {
   const { id } = req.params;
   try {
-    const team = await Teams.findByPk(id);
+    const team = await Times.findByPk(id);
 
     if (!team) {
       return res.status(404).send({
@@ -84,7 +84,7 @@ export const getTeamById = async (
   const { id } = req.params;
 
   try {
-    const team = await Teams.findByPk(id);
+    const team = await Times.findByPk(id);
 
     if (!team) {
       return res.status(404).send({
@@ -106,7 +106,7 @@ export const listTeam = async (
   res: Response
 ) => {
   try {
-    const teams = await Teams.findAll();
+    const teams = await Times.findAll();
 
     return res.status(200).json(teams);
   } catch (error) {

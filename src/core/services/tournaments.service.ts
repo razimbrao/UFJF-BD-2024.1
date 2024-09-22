@@ -1,7 +1,7 @@
-import { Tournaments } from '../../database/models/Tournaments';
+import { Campeonatos } from '../../database/models/Campeonatos';
 
 export const verifyTournamentById = async (tournamentId: string) => {
-  const tournament = await Tournaments.findByPk(tournamentId);
+  const tournament = await Campeonatos.findByPk(tournamentId);
   if (!tournament) {
     throw new Error('Time não encontrado');
   }

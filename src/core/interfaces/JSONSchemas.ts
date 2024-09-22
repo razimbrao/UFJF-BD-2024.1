@@ -1,9 +1,9 @@
 export const schemas: { [key: string]: object } = {
-  '/team': {
-    id: '/team',
+  '/time': {
+    id: '/time',
     type: 'object',
     properties: {
-      name: {
+      nome: {
         type: 'string',
         maxLength: 150
       },
@@ -13,80 +13,74 @@ export const schemas: { [key: string]: object } = {
         maxLength: 255
       }
     },
-    required: ['name', 'logo']
+    required: ['nome', 'logo']
   },
-  '/tournament': {
-    id: '/tournament',
+  '/campeonato': {
+    id: '/campeonato',
     type: 'object',
     properties: {
-      name: {
+      nome: {
         type: 'string',
         maxLength: 150
       },
-      start: {
+      dataInicio: {
         type: 'string',
         format: 'date',
         minLength: 8
       },
-      end: {
+      dataFim: {
         type: 'string',
         format: 'date',
         minLength: 8
       },
-      winnerTeam: {
-        type: 'string',
-        format: 'uuid'
+      vencedor: {
+        type: 'integer'
       }
     },
-    required: ['name', 'start', 'end']
+    required: ['nome', 'dataInicio', 'dataFim']
   },
-  '/player': {
-    id: '/player',
+  '/jogador': {
+    id: '/jogador',
     type: 'object',
     properties: {
-      userId: {
-        type: 'string',
-        format: 'uuid'
+      usuarioId: {
+        type: 'integer'
       },
       riotId: {
         type: 'string',
         maxLength: 50
       },
-      teamId: {
-        type: 'string',
-        format: 'uuid'
+      timeId: {
+        type: 'integer'
       }
     },
-    required: ['userId', 'riotId', 'teamId']
+    required: ['usuarioId', 'riotId', 'timeId']
   },
-  '/match': {
-    id: '/match',
+  '/partida': {
+    id: '/partida',
     type: 'object',
     properties: {
-      tournamentId: {
-        type: 'string',
-        format: 'uuid'
+      campId: {
+        type: 'integer'
       },
-      teamA: {
-        type: 'string',
-        format: 'uuid'
+      timeA: {
+        type: 'integer'
       },
-      teamB: {
-        type: 'string',
-        format: 'uuid'
+      timeB: {
+        type: 'integer'
       },
       result: {
         type: 'string',
         maxLength: 50
       }
     },
-    required: ['tournamentId', 'teamA', 'teamB', 'result']
+    required: ['campId', 'timeA', 'timeB', 'result']
   },
-  '/user': {
-    id: '/user',
+  '/usuario': {
+    id: '/usuario',
     type: 'object',
     properties: {
-      name: {
+      nome: {
         type: 'string',
         maxLength: 150
       },
@@ -95,36 +89,21 @@ export const schemas: { [key: string]: object } = {
         format: 'email',
         maxLength: 150
       },
-      password: {
+      senha: {
         type: 'string',
         minLength: 8
       }
     },
-    required: ['name', 'email', 'password']
+    required: ['nome', 'email', 'senha']
   },
-  '/location': {
-    id: '/location',
+  '/time/campeonato': {
+    id: '/time/campeonato',
     type: 'object',
     properties: {
-      name: {
-        type: 'string',
-        maxLength: 150
-      },
-      status: {
-        type: 'boolean'
+      timeId: {
+        type: 'integer'
       }
     },
-    required: ['name', 'status']
-  },
-  '/team/tournament': {
-    id: '/team/tournament',
-    type: 'object',
-    properties: {
-      teamId: {
-        type: 'string',
-        format: 'uuid'
-      }
-    },
-    required: ['teamId']
+    required: ['timeId']
   }
 };

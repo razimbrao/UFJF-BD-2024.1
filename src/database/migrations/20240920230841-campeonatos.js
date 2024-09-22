@@ -3,25 +3,36 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('users', {
-      id: {
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
+    await queryInterface.createTable('campeonatos', {
+      camp_id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        unique: true,
         allowNull: false,
         primaryKey: true
       },
-      email: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true
-      },
-      password: {
+      nome: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      name: {
-        type: Sequelize.STRING,
+      data_inicio: {
+        type: Sequelize.DATE,
         allowNull: false
+      },
+      data_fim: {
+        type: Sequelize.DATE,
+        allowNull: false
+      },
+      vencedor: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        defaultValue: null,
+        references: {
+          model: 'times',
+          key: 'time_id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL'
       },
       created_at: {
         type: Sequelize.DATE,
@@ -37,6 +48,6 @@ module.exports = {
   },
 
   async down (queryInterface) {
-    await queryInterface.dropTable('users');
+    await queryInterface.dropTable('campeonatos');
   }
 };

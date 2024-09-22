@@ -1,21 +1,21 @@
 import { Request, Response } from 'express';
-import { Tournaments } from '../../database/models/Tournaments';
+import { Campeonatos } from '../../database/models/Campeonatos';
 import { verifyTeamById } from '../services/teams.service';
-import { Teams, TeamsTournaments } from '../../database/models/Teams';
-import { ITournamentWithTeams } from '../interfaces/Tournaments';
-import { Matches } from '../../database/models/Matches';
+import { Times, TimesCampeonatos } from '../../database/models/Times';
+import { ICampeonatoComTimes } from '../interfaces/Campeonatos';
+import { Partidas } from '../../database/models/Partidas';
 
 export const createTournament = async (
   req: Request,
   res: Response
 ) => {
-  const { name, start, end } = req.body;
+  const { nome, dataInicio, dataFim } = req.body;
 
   try {
-    const newTournament = await Tournaments.create({
-      name,
-      start,
-      end
+    const newTournament = await Campeonatos.create({
+      nome,
+      dataInicio,
+      dataFim
     });
 
     return res.status(201).json(newTournament.dataValues);
@@ -32,13 +32,13 @@ export const updateTournament = async (
   res: Response
 ) => {
   const { id } = req.params;
-  const { name, start, end, winnerTeam } = req.body;
+  const { nome, dataInicio, dataFim, vencedor } = req.body;
 
   try {
-    if (winnerTeam) {
-      await verifyTeamById(winnerTeam);
+    if (vencedor) {
+      await verifyTeamById(vencedor);
     }
-    const tournament = await Tournaments.findByPk(id);
+    const tournament = await Campeonatos.findByPk(id);
 
     if (!tournament) {
       return res.status(404).send({
@@ -47,10 +47,10 @@ export const updateTournament = async (
     }
 
     await tournament.update({
-      name,
-      start,
-      end,
-      winnerTeam
+      nome,
+      dataInicio,
+      dataFim,
+      vencedor
     });
 
     return res.status(200).json(tournament.dataValues);
@@ -69,7 +69,7 @@ export const deleteTournament = async (
   const { id } = req.params;
 
   try {
-    const tournament = await Tournaments.findByPk(id);
+    const tournament = await Campeonatos.findByPk(id);
 
     if (!tournament) {
       return res.status(404).send({
@@ -93,7 +93,7 @@ export const listTournament = async (
   res: Response
 ) => {
   try {
-    const tournaments = await Tournaments.findAll();
+    const tournaments = await Campeonatos.findAll();
 
     return res.status(200).json(tournaments);
   } catch (error) {
@@ -111,7 +111,7 @@ export const getTournamentById = async (
   const { id } = req.params;
 
   try {
-    const tournament = await Tournaments.findByPk(id);
+    const tournament = await Campeonatos.findByPk(id);
 
     if (!tournament) {
       return res.status(404).send({
@@ -135,13 +135,13 @@ export const listTeamByTournament = async (
   const { id } = req.params;
 
   try {
-    const tournament = await Tournaments.findOne({
-      where: { id },
+    const tournament = await Campeonatos.findOne({
+      where: { campId: id },
       include: {
-        model: Teams,
-        as: 'teams'
+        model: Times,
+        as: 'times'
       }
-    }) as ITournamentWithTeams;
+    }) as ICampeonatoComTimes;
 
     if (!tournament) {
       return res.status(404).send({
@@ -164,10 +164,10 @@ export const addTeamToTournament = async (
   req: Request,
   res: Response
 ) => {
-  const { id: tournamentId } = req.params;
-  const { teamId } = req.body;
+  const { id: campId } = req.params;
+  const { timeId } = req.body;
   try {
-    const tournament = await Tournaments.findByPk(tournamentId);
+    const tournament = await Campeonatos.findByPk(campId);
 
     if (!tournament) {
       return res.status(404).send({
@@ -175,7 +175,7 @@ export const addTeamToTournament = async (
       });
     }
 
-    const team = await Teams.findByPk(teamId);
+    const team = await Times.findByPk(timeId);
 
     if (!team) {
       return res.status(404).send({
@@ -183,9 +183,9 @@ export const addTeamToTournament = async (
       });
     }
 
-    await TeamsTournaments.create({
-      tournamentId,
-      teamId
+    await TimesCampeonatos.create({
+      campId: parseInt(campId, 10),
+      timeId
     });
 
     return res.status(204).send();
@@ -201,11 +201,11 @@ export const listMatchesByTournament = async (
   req: Request,
   res: Response
 ) => {
-  const { id: tournamentId } = req.params;
+  const { id: campId } = req.params;
   try {
-    const matches = await Matches.findAll({
+    const matches = await Partidas.findAll({
       where: {
-        tournamentId
+        campId
       }
     });
 

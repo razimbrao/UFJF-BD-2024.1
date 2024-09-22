@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Matches } from '../../database/models/Matches';
+import { Partidas } from '../../database/models/Partidas';
 import { verifyTeamById } from '../services/teams.service';
 import { verifyTournamentById } from '../services/tournaments.service';
 
@@ -7,17 +7,17 @@ export const createMatch = async (
   req: Request,
   res: Response
 ) => {
-  const { tournamentId, teamA, teamB, result } = req.body;
+  const { campId, timeA, timeB, resultado } = req.body;
   try {
-    await verifyTeamById(teamA);
-    await verifyTeamById(teamB);
-    await verifyTournamentById(tournamentId);
+    await verifyTeamById(timeA);
+    await verifyTeamById(timeB);
+    await verifyTournamentById(campId);
 
-    const newMatch = await Matches.create({
-      tournamentId,
-      teamA,
-      teamB,
-      result
+    const newMatch = await Partidas.create({
+      campId,
+      timeA,
+      timeB,
+      resultado
     });
 
     return res.status(201).json(newMatch.dataValues);
@@ -34,14 +34,14 @@ export const updateMatch = async (
   res: Response
 ) => {
   const { id } = req.params;
-  const { tournamentId, teamA, teamB, result } = req.body;
+  const { campId, timeA, timeB, resultado } = req.body;
 
   try {
-    await verifyTeamById(teamA);
-    await verifyTeamById(teamB);
-    await verifyTournamentById(tournamentId);
+    await verifyTeamById(timeA);
+    await verifyTeamById(timeB);
+    await verifyTournamentById(campId);
 
-    const match = await Matches.findByPk(id);
+    const match = await Partidas.findByPk(id);
     if (!match) {
       return res.status(404).send({
         message: 'Partida não encontrada'
@@ -49,10 +49,10 @@ export const updateMatch = async (
     }
 
     await match.update({
-      tournamentId,
-      teamA,
-      teamB,
-      result
+      campId,
+      timeA,
+      timeB,
+      resultado
     });
 
     return res.status(200).json(match.dataValues);
@@ -70,7 +70,7 @@ export const deleteMatch = async (
 ) => {
   const { id } = req.params;
   try {
-    const match = await Matches.findByPk(id);
+    const match = await Partidas.findByPk(id);
     if (!match) {
       return res.status(404).send({
         message: 'Partida não encontrada'
@@ -94,7 +94,7 @@ export const getMatchById = async (
 ) => {
   const { id } = req.params;
   try {
-    const match = await Matches.findByPk(id);
+    const match = await Partidas.findByPk(id);
     if (!match) {
       return res.status(404).send({
         message: 'Partida não encontrada'
@@ -115,7 +115,7 @@ export const listMatch = async (
   res: Response
 ) => {
   try {
-    const matches = await Matches.findAll();
+    const matches = await Partidas.findAll();
 
     return res.status(200).json(matches);
   } catch (error) {
@@ -130,11 +130,11 @@ export const listMatchByTournament = async (
   req: Request,
   res: Response
 ) => {
-  const { tournamentId } = req.params;
+  const { id } = req.params;
   try {
-    const matches = await Matches.findAll({
+    const matches = await Partidas.findAll({
       where: {
-        tournamentId
+        campId: id
       }
     });
 

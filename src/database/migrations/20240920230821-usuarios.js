@@ -3,36 +3,26 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('players', {
-      id: {
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
+    await queryInterface.createTable('usuarios', {
+      usuario_id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        unique: true,
         allowNull: false,
         primaryKey: true
       },
-      user_id: {
-        type: Sequelize.UUID,
+      email: {
+        type: Sequelize.STRING,
         allowNull: false,
-        references: {
-          model: 'users',
-          key: 'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        unique: true
       },
-      riot_id: {
+      senha: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      team_id: {
-        type: Sequelize.UUID,
-        allowNull: false,
-        references: {
-          model: 'teams',
-          key: 'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
+      nome: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
       created_at: {
         type: Sequelize.DATE,
@@ -48,6 +38,6 @@ module.exports = {
   },
 
   async down (queryInterface) {
-    await queryInterface.dropTable('players');
+    await queryInterface.dropTable('usuarios');
   }
 };
