@@ -95,9 +95,10 @@ export const listTournament = async (
 ) => {
   try {
     const tournaments = await Campeonatos.findAll();
-
+    console.log(tournaments);
     return res.status(200).json(tournaments);
   } catch (error) {
+    console.log(error);
     return res.status(400).send({
       message: 'Erro listando torneios',
       error: (error as Error).message

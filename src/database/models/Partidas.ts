@@ -8,8 +8,6 @@ export interface PartidaModel extends Model<InferAttributes<PartidaModel>, Infer
   timeB: number;
   campId: number;
   resultado: string;
-  createdAt: CreationOptional<string>;
-  updatedAt: CreationOptional<string>;
 }
 
 export const Partidas = sequelize.define<PartidaModel>(
@@ -51,17 +49,10 @@ export const Partidas = sequelize.define<PartidaModel>(
     resultado: {
       type: DataTypes.STRING,
       allowNull: false
-    },
-    createdAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      field: 'created_at'
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      field: 'updated_at'
     }
+  },
+  {
+    timestamps: false
   }
 );
 

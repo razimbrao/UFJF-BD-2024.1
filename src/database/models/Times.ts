@@ -8,22 +8,16 @@ export interface TimeModel extends Model<InferAttributes<TimeModel>, InferCreati
   timeId: CreationOptional<number>;
   nome: string;
   logo: string;
-  createdAt: CreationOptional<string>;
-  updatedAt: CreationOptional<string>;
 }
 
 export interface TimesCampeonatosModel extends Model<InferAttributes<TimesCampeonatosModel>, InferCreationAttributes<TimesCampeonatosModel>> {
   timeId: number;
   campId: number;
-  createdAt: CreationOptional<string>;
-  updatedAt: CreationOptional<string>;
 }
 
 export interface TimesPartidasModel extends Model<InferAttributes<TimesPartidasModel>, InferCreationAttributes<TimesPartidasModel>> {
   timeId: number;
   partidaId: number;
-  createdAt: CreationOptional<string>;
-  updatedAt: CreationOptional<string>;
 }
 
 export const Times = sequelize.define<TimeModel>(
@@ -42,17 +36,10 @@ export const Times = sequelize.define<TimeModel>(
     logo: {
       type: DataTypes.STRING,
       allowNull: false
-    },
-    createdAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      field: 'created_at'
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      field: 'updated_at'
     }
+  },
+  {
+    timestamps: false
   }
 );
 
@@ -76,17 +63,10 @@ export const TimesCampeonatos = sequelize.define<TimesCampeonatosModel>(
         key: 'camp_id'
       },
       field: 'camp_id'
-    },
-    createdAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      field: 'created_at'
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      field: 'updated_at'
     }
+  },
+  {
+    timestamps: false
   }
 );
 
@@ -110,17 +90,10 @@ export const TimesPartidas = sequelize.define<TimesPartidasModel>(
         key: 'partida_id'
       },
       field: 'partida_id'
-    },
-    createdAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      field: 'created_at'
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      field: 'updated_at'
     }
+  },
+  {
+    timestamps: false
   }
 );
 

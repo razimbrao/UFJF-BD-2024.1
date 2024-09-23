@@ -6,8 +6,6 @@ export interface UsuarioModel extends Model<InferAttributes<UsuarioModel>, Infer
   email: string;
   senha: string;
   nome: string;
-  createdAt: CreationOptional<string>;
-  updatedAt: CreationOptional<string>;
 }
 
 export const Usuarios = sequelize.define<UsuarioModel>(
@@ -31,16 +29,9 @@ export const Usuarios = sequelize.define<UsuarioModel>(
     nome: {
       type: DataTypes.STRING,
       allowNull: false
-    },
-    createdAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      field: 'created_at'
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      field: 'updated_at'
     }
+  },
+  {
+    timestamps: false
   }
 );

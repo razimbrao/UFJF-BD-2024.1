@@ -7,8 +7,6 @@ export interface ICampeonato {
   dataInicio: string;
   dataFim: string;
   vencedor?: number;
-  createdAt: string;
-  updatedAt: string;
 }
 
 export interface ICampeonatoComTimes extends CampeonatoModel {
