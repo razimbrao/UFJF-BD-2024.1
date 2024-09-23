@@ -2,15 +2,15 @@ import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, 
 import { sequelize } from '../datasource';
 
 export interface JogadorModel extends Model<InferAttributes<JogadorModel>, InferCreationAttributes<JogadorModel>> {
-  usuarioId: string;
+  usuarioId: number;
   riotId: string;
-  timeId: string;
+  timeId: number;
   createdAt: CreationOptional<string>;
   updatedAt: CreationOptional<string>;
 }
 
 export const Jogadores = sequelize.define<JogadorModel>(
-  'players',
+  'jogadores',
   {
 
     usuarioId: {
@@ -29,7 +29,7 @@ export const Jogadores = sequelize.define<JogadorModel>(
       field: 'riot_id'
     },
     timeId: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: 'times',
