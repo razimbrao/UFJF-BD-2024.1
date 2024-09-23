@@ -8,7 +8,7 @@ export interface JogadorModel extends Model<InferAttributes<JogadorModel>, Infer
 }
 
 export const Jogadores = sequelize.define<JogadorModel>(
-  'jogadores',
+  'jogador',
   {
 
     usuarioId: {
@@ -37,6 +37,7 @@ export const Jogadores = sequelize.define<JogadorModel>(
     }
   },
   {
+    tableName: 'jogador',
     timestamps: false
   }
 );

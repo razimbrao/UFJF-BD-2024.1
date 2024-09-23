@@ -3,7 +3,6 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface) {
-    // Remover createdAt e updatedAt de todas as tabelas
     await queryInterface.removeColumn('usuarios', 'created_at');
     await queryInterface.removeColumn('usuarios', 'updated_at');
 
@@ -24,7 +23,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    // Reverter as alterações, adicionando as colunas novamente
     await queryInterface.addColumn('usuarios', 'created_at', {
       type: Sequelize.DATE,
       allowNull: false,

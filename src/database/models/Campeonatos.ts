@@ -10,7 +10,7 @@ export interface CampeonatoModel extends Model<InferAttributes<CampeonatoModel>,
 }
 
 export const Campeonatos = sequelize.define<CampeonatoModel>(
-  'campeonatos',
+  'campeonato',
   {
     campId: {
       type: DataTypes.INTEGER,
@@ -42,6 +42,7 @@ export const Campeonatos = sequelize.define<CampeonatoModel>(
     }
   },
   {
+    tableName: 'campeonato',
     timestamps: false
   }
 );

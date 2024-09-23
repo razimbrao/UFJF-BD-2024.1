@@ -9,7 +9,7 @@ export interface UsuarioModel extends Model<InferAttributes<UsuarioModel>, Infer
 }
 
 export const Usuarios = sequelize.define<UsuarioModel>(
-  'usuarios',
+  'usuario',
   {
     usuarioId: {
       type: DataTypes.INTEGER,
@@ -32,6 +32,7 @@ export const Usuarios = sequelize.define<UsuarioModel>(
     }
   },
   {
+    tableName: 'usuario',
     timestamps: false
   }
 );

@@ -21,7 +21,7 @@ export interface TimesPartidasModel extends Model<InferAttributes<TimesPartidasM
 }
 
 export const Times = sequelize.define<TimeModel>(
-  'times',
+  'time',
   {
     timeId: {
       type: DataTypes.INTEGER,
@@ -39,12 +39,13 @@ export const Times = sequelize.define<TimeModel>(
     }
   },
   {
+    tableName: 'time',
     timestamps: false
   }
 );
 
 export const TimesCampeonatos = sequelize.define<TimesCampeonatosModel>(
-  'times_campeonatos',
+  'time_campeonato',
   {
     timeId: {
       type: DataTypes.INTEGER,
@@ -66,12 +67,13 @@ export const TimesCampeonatos = sequelize.define<TimesCampeonatosModel>(
     }
   },
   {
+    tableName: 'time_campeonato',
     timestamps: false
   }
 );
 
 export const TimesPartidas = sequelize.define<TimesPartidasModel>(
-  'times_partidas',
+  'time_partida',
   {
     timeId: {
       type: DataTypes.INTEGER,
@@ -93,6 +95,7 @@ export const TimesPartidas = sequelize.define<TimesPartidasModel>(
     }
   },
   {
+    tableName: 'time_partida',
     timestamps: false
   }
 );

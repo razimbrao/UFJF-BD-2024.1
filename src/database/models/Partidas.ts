@@ -11,7 +11,7 @@ export interface PartidaModel extends Model<InferAttributes<PartidaModel>, Infer
 }
 
 export const Partidas = sequelize.define<PartidaModel>(
-  'partidas',
+  'partida',
   {
     partidaId: {
       type: DataTypes.INTEGER,
@@ -52,6 +52,7 @@ export const Partidas = sequelize.define<PartidaModel>(
     }
   },
   {
+    tableName: 'partida',
     timestamps: false
   }
 );
